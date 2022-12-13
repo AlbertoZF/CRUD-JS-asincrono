@@ -12,11 +12,25 @@ const obtenerInformacion = async () => {
 
     const nombre = document.querySelector("[data-nombre]");
     const email = document.querySelector("[data-email]");
-    const perfil = await clientServices.detalleCliente(id)
+
+    try{
+        const perfil = await clientServices.detalleCliente(id);
+        if (perfil.nombre && perfil.email) {
+            nombre.value = perfil.nombre;
+            email.value = perfil.email;
+        } else {
+            throw new Error();
+        }
+    } catch(error) {
+        // alert("Ocurrió un Error");
+        window.location.href = "/screens/error.html";
+    };
+
+    
 
     // .then((perfil) => {
-        nombre.value = perfil.nombre;
-        email.value = perfil.email;
+        // nombre.value = perfil.nombre;
+        // email.value = perfil.email;
     // });
 }
 
